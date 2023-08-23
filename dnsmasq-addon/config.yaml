@@ -1,6 +1,6 @@
-name: Dnsmasq add-on
-slug: dnsmasq_itsib
-version: 1.6.2
+name: Dnsmasq Addon
+slug: dnsmasq-addon
+version: 1.6.3
 description: A simple DNS server
 url: https://github.com/itsib/dnsmasq
 advanced: true
@@ -12,7 +12,7 @@ arch:
   - aarch64
   - amd64
   - i386
-image: homeassistant/{arch}-addon-dnsmasq
+#image: homeassistant/{arch}-addon-dnsmasq
 init: false
 options:
   defaults:
