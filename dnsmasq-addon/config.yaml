@@ -24,13 +24,14 @@ options:
   domain_needed: false
   bogus_priv: false
   server: []
-  domain:
+  domains: []
+  servers:
     - 8.8.8.8
     - 8.8.4.4
-  forwards: []
-  hosts: []
-  services: []
+  addresses: []
+  srv_hosts: []
   cnames: []
+  dhcp: {}
   log_queries: false
 schema:
   port: port
