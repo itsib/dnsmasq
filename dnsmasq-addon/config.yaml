@@ -1,6 +1,6 @@
 name: Dnsmasq Addon
 slug: dnsmasq-addon
-version: 1.6.3
+version: 1.6.4
 description: A simple DNS server
 url: https://github.com/itsib/dnsmasq
 advanced: true
