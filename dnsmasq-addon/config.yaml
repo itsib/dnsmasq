@@ -1,9 +1,11 @@
 name: Dnsmasq Addon
 slug: dnsmasq-addon
-version: 1.6.4
+version: 1.6.5
 description: A simple DNS server
 url: https://github.com/itsib/dnsmasq
 advanced: true
+map:
+  - "config:rw"
 apparmor: false
 ingress: false
 arch:
@@ -14,8 +16,15 @@ arch:
   - i386
 #image: homeassistant/{arch}-addon-dnsmasq
 init: false
+ports:
+  53/tcp: 53
+  53/udp: 53
 options:
-  defaults:
+  port: 53
+  domain_needed: false
+  bogus_priv: false
+  server: []
+  domain:
     - 8.8.8.8
     - 8.8.4.4
   forwards: []
@@ -23,26 +32,36 @@ options:
   services: []
   cnames: []
   log_queries: false
-ports:
-  53/tcp: 53
-  53/udp: 53
 schema:
-  defaults:
-    - str
-  forwards:
-    - domain: str
-      server: str
-  hosts:
-    - host: str
-      ip: str
-  services:
-    - host: str
-      port: str
-      priority: int
-      srv: str
-      weight: int
+  port: port
+  domain_needed: bool
+  bogus_priv: bool
+  local: "str?"
+  interface: "str?"
+  except_interface: "str?"
+  listen_address: "str?"
+  no_dhcp_interface: "str?"
+  bind_interfaces: "str?"
+  expand_hosts: "bool?"
+  domains:
+    - "str"
+  servers:
+    - "str"
+  addresses:
+    - "str"
+  srv_hosts:
+    - "str"
   cnames:
-    - name: str
-      target: str
-  log_queries: bool
+    - "str"
+  dhcp:
+    range: "str?"
+    options:
+      - "str"
+    options_force:
+      - "str"
+    hosts:
+      - "str"
+    authoritative: "bool?"
+
+  log_queries: "bool"
 startup: system
