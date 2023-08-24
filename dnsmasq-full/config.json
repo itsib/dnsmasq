@@ -1,0 +1,35 @@
+{
+  "name": "Dnsmasq Full",
+  "slug": "dnsmasq-full",
+  "version": "1.6.7",
+  "description": "Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server.",
+  "stage": "experimental",
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
+  "url": "https://github.com/itsib/dnsmasq",
+  "advanced": true,
+  "panel_icon": "mdi:dns",
+  "map": [
+    "config:rw"
+  ],
+  "apparmor": false,
+  "ingress": false,
+  "startup": "system",
+  "init": false,
+  "host_network": true,
+  "ports": {
+    "53/tcp": 53,
+    "53/udp": 53
+  },
+  "options": {
+    "configuration": "no-resolv no-hosts keep-in-foreground log-facility=- no-poll user=root server=8.8.8.8 server=8.8.4.4"
+  },
+  "schema": {
+    "configuration": "str"
+  }
+}

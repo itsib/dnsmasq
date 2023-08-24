@@ -1,0 +1,64 @@
+#!/bin/bash
+
+CONFIG_FILE="dnsmasq-full/config.json"
+CURRENT_VERSION=
+NEW_VERSION=
+
+abort () {
+  local message=$@
+  printf "\e[31m \nERROR: \"%s\"\e[0m \n\n" "$message"
+  exit 1
+}
+
+bump() {
+  if [ ! -f "$CONFIG_FILE" ]; then
+      abort "💀 Config file not found!"
+  fi
+
+  CURRENT_VERSION=$(cat "$CONFIG_FILE" | grep --regexp='"version":' | cut -d '"' -f4)
+  MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
+  MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
+  PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
+
+  case $@ in
+    "major")
+      let "++MAJOR"
+      MINOR=0
+      PATCH=0
+      ;;
+    "minor")
+      let "++MINOR"
+      PATCH=0
+      ;;
+    "patch")
+      let "++PATCH"
+      ;;
+    *)
+      abort "💀 Bad CLI usage! Version argument should be one of: major, minor or patch"
+      ;;
+  esac
+
+  NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+
+  echo " - Current version: \"$CURRENT_VERSION\""
+  echo " - New version: \"$NEW_VERSION\""
+
+  sed -i.tmp "s/\"version\": \"${CURRENT_VERSION}\"/\"version\": \"${NEW_VERSION}\"/g" "$CONFIG_FILE"
+  rm "${CONFIG_FILE}.tmp"
+
+  if [[ $(git diff "${CONFIG_FILE}") ]]; then
+      echo "✅ Config successfully updated."
+    else
+      abort "💀 Failed to update $CONFIG_FILE. Aborting."
+    fi
+}
+
+push() {
+  git add .
+  git commit -m "Bump to ${NEW_VERSION}"
+  git tag "v${NEW_VERSION}"
+  git push origin --tags
+}
+
+bump $1
+push
