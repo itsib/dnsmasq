@@ -1,5 +1,9 @@
 {
   "configuration": {
+    "data_path": {
+      "name": "Configuration File Path",
+      "description": "Location of the Dnsmasq configuration path."
+    },
     "configuration": {
       "name": "Configuration",
       "description": "Configuration file content. Example: https://raw.githubusercontent.com/imp/dnsmasq/master/dnsmasq.conf.example"
