@@ -1,0 +1,12 @@
+{
+  "configuration": {
+    "configuration": {
+      "name": "Configuration",
+      "description": "Configuration file content. Example: https://raw.githubusercontent.com/imp/dnsmasq/master/dnsmasq.conf.example"
+    }
+  },
+  "network": {
+    "53/tcp": "TCP port for DNS requests.",
+    "53/udp": "UDP port for DNS requests."
+  }
+}

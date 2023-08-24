@@ -1,0 +1,39 @@
+name: Dnsmasq Full
+slug: dnsmasq-fill
+version: 1.6.5
+description: >-
+  Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server. It is intended to provide coupled DNS and DHCP service to a LAN.
+stage: experimental
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+url: https://github.com/itsib/dnsmasq
+advanced: true
+panel_icon: mdi:dns
+map:
+  - "config:rw"
+apparmor: false
+ingress: false
+image: homeassistant/{arch}-addon-dnsmasq-fill
+codenotary: notary@home-assistant.io
+startup: system
+init: false
+host_network: true
+ports:
+  53/tcp: 53
+  53/udp: 53
+options:
+  configuration: >-
+    no-resolv
+    no-hosts
+    keep-in-foreground
+    log-facility=-
+    no-poll
+    user=root
+    server=8.8.8.8
+    server=8.8.4.4
+schema:
+  configuration: str
