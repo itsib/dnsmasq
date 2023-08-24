@@ -1,16 +1,17 @@
 #!/usr/bin/with-contenv bashio
-CONFIG="/etc/dnsmasq.conf"
+#CONFIG="/etc/dnsmasq.conf"
 
 bashio::log.info "Preparing to start..."
 bashio::config.require 'data_path'
 
-DATA_PATH=$(bashio::config 'data_path')
+DNSMASQ_DATA_PATH=$(bashio::config 'data_path')
 
 #Create config if not exist
-if ! bashio::fs.file_exists "$DATA_PATH/dnsmasq.conf"; then
-  mkdir -p "$DATA_PATH" || bashio::exit.nok "Could not create $DATA_PATH"
+if ! bashio::fs.file_exists "$DNSMASQ_DATA_PATH/dnsmasq.conf"; then
+  mkdir -p "$DNSMASQ_DATA_PATH" || bashio::exit.nok "Could not create $DNSMASQ_DATA_PATH"
 
-  cat <<EOF > "$DATA_PATH/dnsmasq.conf"
+  bashio::log.info "Create default config file"
+  cat <<EOF > "$DNSMASQ_DATA_PATH/dnsmasq.conf"
 no-resolv
 no-hosts
 keep-in-foreground
@@ -28,4 +29,4 @@ bashio::log.info "Starting dnsmasq..."
 # Set max open file limit to speed up startup
 ulimit -n 1024
 
-exec dnsmasq -C "$DATA_PATH/dnsmasq.conf" -z < /dev/null
+exec dnsmasq -C "$DNSMASQ_DATA_PATH/dnsmasq.conf" -z < /dev/null

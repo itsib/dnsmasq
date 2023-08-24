@@ -1,7 +1,7 @@
 {
   "name": "Dnsmasq Full",
   "slug": "dnsmasq-full",
-  "version": "1.6.13",
+  "version": "1.6.14",
   "description": "Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server.",
   "stage": "experimental",
   "arch": [
@@ -27,20 +27,9 @@
     "53/udp": 53
   },
   "options": {
-    "data_path":" /config/dnsmasq",
-    "configuration": [
-      "no-resolv",
-      "no-hosts",
-      "keep-in-foreground",
-      "log-facility=-",
-      "no-poll",
-      "user=root",
-      "server=8.8.8.8",
-      "server=8.8.4.4"
-    ]
+    "data_path": "/config/dnsmasq_full"
   },
   "schema": {
-    "data_path": "str",
-    "configuration": [ "str" ]
+    "data_path": "str"
   }
 }
