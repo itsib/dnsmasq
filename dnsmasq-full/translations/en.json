@@ -11,6 +11,7 @@
   },
   "network": {
     "53/tcp": "TCP port for DNS requests.",
-    "53/udp": "UDP port for DNS requests."
+    "53/udp": "UDP port for DNS requests.",
+    "67/udp": "UDP port for DHCP server."
   }
 }
