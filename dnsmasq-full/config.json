@@ -1,7 +1,7 @@
 {
   "name": "Dnsmasq Full",
   "slug": "dnsmasq-full",
-  "version": "1.6.14",
+  "version": "1.6.15",
   "description": "Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server.",
   "stage": "experimental",
   "arch": [
@@ -17,6 +17,7 @@
   "map": [
     "config:rw"
   ],
+  "privileged": ["NET_ADMIN"],
   "apparmor": false,
   "ingress": false,
   "startup": "system",
