@@ -11,6 +11,7 @@
     "amd64",
     "i386"
   ],
+  "image": "sergeyitsib/image-{arch}-dnsmasq",
   "url": "https://github.com/itsib/dnsmasq",
   "advanced": true,
   "panel_icon": "mdi:dns",

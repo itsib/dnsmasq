@@ -6,7 +6,7 @@ CONFIG_FILE="dnsmasq-full/config.json"
 VERSION=$(cat "$CONFIG_FILE" | grep --regexp='"version":' | cut -d '"' -f4)
 
 echo "Build docker image v${VERSION}"
-
+#sergeyitsib/image-{arch}-dnsmasq
 docker run \
 	--rm \
 	--privileged \
@@ -17,7 +17,7 @@ docker run \
 		--all \
 		--addon \
 		--target /data \
-		--image {arch}-addon-dnsmasq \
+		--image image-{arch}-dnsmasq \
 		--version "v${VERSION}" \
 		--docker-hub "${USER}" \
 		--docker-user "${USER}" \

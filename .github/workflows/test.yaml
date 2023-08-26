@@ -15,5 +15,7 @@ jobs:
           args: |
             --test \
             --all \
-            --target addon-dnsmasq \
+            --addon \
+            --target dnsmasq-full \
             --docker-hub ${{ secrets.DOCKERHUB_SPACE }}
+            
