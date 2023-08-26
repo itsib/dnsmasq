@@ -39,7 +39,8 @@ jobs:
         with:
           args: |
             --test \
+            --addon \
             --${{ matrix.arch }} \
             --target /data \
-            --generic ${{ github.sha }}
-            --docker-hub ${{ env.HUB_NAME }}
+            --docker-hub sergeyitsib \
+            --image image-{arch}-dnsmasq \
