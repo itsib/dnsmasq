@@ -32,7 +32,7 @@ jobs:
           args: |
             --test \
             --addon \
-            --${{ matrix.arch }} \
+            --${{ matrix.architecture }} \
             --target /dnsmasq-full \
             --docker-hub sergeyitsib \
             --image image-${{ matrix.architecture }}-dnsmasq
