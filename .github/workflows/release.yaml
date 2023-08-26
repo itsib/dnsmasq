@@ -19,12 +19,6 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Test Work Dir
-        run: |
-          echo "${{ runner.temp }}"
-          pwd
-          ls -al
-          ls -al ./dnsmasq-full/
       - name: Get information
         id: info
         uses: home-assistant/actions/helpers/info@master
@@ -54,22 +48,22 @@ jobs:
 #          username: sergeyitsib
 #          password: dckr_pat_G9E1m9HMe-NA0erjjq-YUFn5pU4
 
-#      - name: Build the builder
-#        uses: home-assistant/builder@master
-#        with:
-#          args: |
-#            --test \
-#            --amd64 \
-#            --target /dnsmasq-full \
-#            --addon
+      - name: Build the builder
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --test \
+            --amd64 \
+            --target ./dnsmasq-full \
+            --addon
 #
-#      - name: Test ${{ matrix.architecture }} builder
-#        uses: ./
-#        with:
-#          args: |
-#            --test \
-#            --addon \
-#            --${{ matrix.architecture }} \
-#            --target /dnsmasq-full \
-#            --docker-hub sergeyitsib \
-#            --image image-${{ matrix.architecture }}-dnsmasq
+      - name: Test ${{ matrix.architecture }} builder
+        uses: ./
+        with:
+          args: |
+            --test \
+            --addon \
+            --${{ matrix.architecture }} \
+            --target ./dnsmasq-full \
+            --docker-hub sergeyitsib \
+            --image image-${{ matrix.architecture }}-dnsmasq
