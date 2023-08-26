@@ -26,14 +26,6 @@ jobs:
           username: sergeyitsib
           password: dckr_pat_G9E1m9HMe-NA0erjjq-YUFn5pU4
 
-#      - name: Build the builder
-#        uses: home-assistant/builder@master
-#        with:
-#          args: |
-#            --test \
-#            --addon \
-#            --target /dnsmasq-full \
-
       - name: Test ${{ matrix.architecture }} builder
         uses: home-assistant/builder@master
         with:
@@ -43,4 +35,4 @@ jobs:
             --${{ matrix.arch }} \
             --target /dnsmasq-full \
             --docker-hub sergeyitsib \
-            --image image-{architecture}-dnsmasq \
+            --image image-${{ matrix.architecture }}-dnsmasq
