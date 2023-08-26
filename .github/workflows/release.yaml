@@ -57,6 +57,7 @@ jobs:
             --amd64 \
             --target ./dnsmasq-full \
             --addon
+            --no-cache
 #
       - name: Test ${{ matrix.architecture }} builder
         uses: ./
