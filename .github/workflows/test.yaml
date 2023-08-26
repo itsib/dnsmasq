@@ -23,8 +23,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
-          username: ${{ env.USERNAME }}
-          password: ${{ env.PASSWORD }}
+          username: sergeyitsib
+          password: dckr_pat_G9E1m9HMe-NA0erjjq-YUFn5pU4
 
 #      - name: Build the builder
 #        uses: home-assistant/builder@master
