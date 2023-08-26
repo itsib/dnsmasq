@@ -3,6 +3,7 @@ name: Docker
 on: [push, pull_request]
 
 env:
+  env_var: Docker
   USERNAME: ${{ vars.DOCKERHUB_USERNAME }}
   PASSWORD: ${{ vars.DOCKERHUB_TOKEN }}
   HUB_NAME: ${{ vars.DOCKERHUB_SPACE }}
