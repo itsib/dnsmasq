@@ -23,7 +23,7 @@ jobs:
         run: |
           echo "${{ runner.temp }}"
           pwd
-
+          ls -al
       - name: Get information
         id: info
         uses: home-assistant/actions/helpers/info@master
