@@ -15,16 +15,16 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-      - name: Build the builder
-        uses: home-assistant/builder@master
-        with:
-          args: |
-            --test \
-            --i386 \
-            --target /data \
-            --generic latest
+#      - name: Build the builder
+#        uses: home-assistant/builder@master
+#        with:
+#          args: |
+#            --test \
+#            --i386 \
+#            --target /data \
+#            --generic latest
       - name: Test ${{ matrix.arch }} builder
-        uses: ./
+        uses: home-assistant/builder@master
         with:
           args: |
             --test \
