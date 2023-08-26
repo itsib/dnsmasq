@@ -33,7 +33,7 @@ jobs:
             --test \
             --amd64 \
             --target /data \
-            --generic latest
+            --base
 
       - name: Test ${{ matrix.architecture }} builder
         uses: ./
