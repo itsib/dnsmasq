@@ -55,7 +55,6 @@ jobs:
         uses: home-assistant/builder@master
         with:
           args: |
-            --test \
             --${{ matrix.architecture }} \
             --target ./dnsmasq-full \
             --docker-hub ${{ vars.DOCKER_USERNAME }} \
