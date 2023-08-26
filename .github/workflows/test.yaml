@@ -26,17 +26,16 @@ jobs:
           username: sergeyitsib
           password: dckr_pat_G9E1m9HMe-NA0erjjq-YUFn5pU4
 
-      - name: Build the builder
-        uses: home-assistant/builder@master
-        with:
-          args: |
-            --test \
-            --amd64 \
-            --target /dnsmasq-full \
-            --base
+#      - name: Build the builder
+#        uses: home-assistant/builder@master
+#        with:
+#          args: |
+#            --test \
+#            --addon \
+#            --target /dnsmasq-full \
 
       - name: Test ${{ matrix.architecture }} builder
-        uses: ./
+        uses: home-assistant/builder@master
         with:
           args: |
             --test \
