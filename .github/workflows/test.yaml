@@ -2,6 +2,7 @@ name: "Test"
 
 on: [push, pull_request]
 
+
 jobs:
   build:
     name: Test action build
@@ -14,14 +15,14 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v3
 
-#      - name: Build the builder
-#        uses: home-assistant/builder@master
-#        with:
-#          args: |
-#            --test \
-#            --amd64 \
-#            --target /data \
-#            --generic latest
+      - name: Build the builder
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --test \
+            --i386 \
+            --target /data \
+            --generic latest
       - name: Test ${{ matrix.arch }} builder
         uses: ./
         with:
