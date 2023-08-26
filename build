@@ -2,8 +2,8 @@
 
 TOKEN=$1
 USER=sergeyitsib
-CONFIG_FILE="dnsmasq-full/config.json"
-VERSION=$(cat "$CONFIG_FILE" | grep --regexp='"version":' | cut -d '"' -f4)
+CONFIG_FILE="dnsmasq-full/config.yaml"
+VERSION=$(cat "$CONFIG_FILE" | grep --regexp='^version:' | cut -d ':' -f2 | sed -e 's/^[[:space:]]*//')
 
 echo "Build docker image v${VERSION}"
 

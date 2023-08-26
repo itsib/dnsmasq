@@ -2,19 +2,69 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+
+env:
+  env_var: Docker
+  DOCKER_ROOT_HUB: ${{ vars.DOCKER_HUB }}
+  USERNAME: ${{ vars.DOCKER_USERNAME }}
+  PASSWORD: ${{ vars.DOCKER_TOKEN }}
 
 jobs:
-  release:
+  init:
+    name: Initialize build
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    environment: production
+    outputs:
+      architectures: ${{ steps.info.outputs.architectures }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          draft: false
-          prerelease: false
+      - name: Checkout the repository
+        uses: actions/checkout@v3
 
+      - name: Get information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+  deploy:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+      fail-fast: False
+      matrix:
+        architecture: ${{ fromJson(needs.init.outputs.architectures) }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2.0.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+#      - name: Login to DockerHub
+#        uses: docker/login-action@v2
+#        with:
+#          username: sergeyitsib
+#          password: dckr_pat_G9E1m9HMe-NA0erjjq-YUFn5pU4
+
+#      - name: Build the builder
+#        uses: home-assistant/builder@master
+#        with:
+#          args: |
+#            --test \
+#            --amd64 \
+#            --target /dnsmasq-full \
+#            --addon
+#
+#      - name: Test ${{ matrix.architecture }} builder
+#        uses: ./
+#        with:
+#          args: |
+#            --test \
+#            --addon \
+#            --${{ matrix.architecture }} \
+#            --target /dnsmasq-full \
+#            --docker-hub sergeyitsib \
+#            --image image-${{ matrix.architecture }}-dnsmasq

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONFIG_FILE="dnsmasq-full/config.json"
+CONFIG_FILE="dnsmasq-full/config.yaml"
 CURRENT_VERSION=
 NEW_VERSION=
 
@@ -15,7 +15,7 @@ bump() {
       abort "💀 Config file not found!"
   fi
 
-  CURRENT_VERSION=$(cat "$CONFIG_FILE" | grep --regexp='"version":' | cut -d '"' -f4)
+  CURRENT_VERSION=$(cat "$CONFIG_FILE" | grep --regexp='^version:' | cut -d ':' -f2 | sed -e 's/^[[:space:]]*//')
   MAJOR=$(echo $CURRENT_VERSION | cut -d. -f1)
   MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
   PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
@@ -43,7 +43,7 @@ bump() {
   echo " - Current version: \"$CURRENT_VERSION\""
   echo " - New version: \"$NEW_VERSION\""
 
-  sed -i.tmp "s/\"version\": \"${CURRENT_VERSION}\"/\"version\": \"${NEW_VERSION}\"/g" "$CONFIG_FILE"
+  sed -i.tmp "s/^version:[[:space:]]${CURRENT_VERSION}/version: ${NEW_VERSION}/g" "$CONFIG_FILE"
   rm "${CONFIG_FILE}.tmp"
 
   if [[ $(git diff "${CONFIG_FILE}") ]]; then
