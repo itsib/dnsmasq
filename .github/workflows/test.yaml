@@ -32,7 +32,7 @@ jobs:
           args: |
             --test \
             --amd64 \
-            --target /data \
+            --target /dnsmasq-full \
             --base
 
       - name: Test ${{ matrix.architecture }} builder
@@ -42,6 +42,6 @@ jobs:
             --test \
             --addon \
             --${{ matrix.arch }} \
-            --target /data \
+            --target /dnsmasq-full \
             --docker-hub sergeyitsib \
             --image image-{architecture}-dnsmasq \

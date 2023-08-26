@@ -11,12 +11,12 @@ docker run \
 	--rm \
 	--privileged \
 	-v ~/.docker:/root/.docker \
-	-v ./dnsmasq-full:/data \
+	-v ./dnsmasq-full:/dnsmasq-full \
 	--platform linux/x86_64 \
 	homeassistant/amd64-builder \
 		--all \
 		--addon \
-		--target /data \
+		--target /dnsmasq-full \
 		--image image-{arch}-dnsmasq \
 		--version "v${VERSION}" \
 		--docker-hub "${USER}" \
