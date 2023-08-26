@@ -24,11 +24,12 @@ jobs:
           echo "${{ runner.temp }}"
           pwd
           ls -al
+          ls -al ./dnsmasq-full/
       - name: Get information
         id: info
         uses: home-assistant/actions/helpers/info@master
         with:
-          path: "/home/runner/work/dnsmasq/dnsmasq"
+          path: "./dnsmasq-full"
   deploy:
     name: Build and publish
     runs-on: ubuntu-latest
