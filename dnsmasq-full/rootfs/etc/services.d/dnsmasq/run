@@ -1,5 +1,4 @@
 #!/usr/bin/with-contenv bashio
-#CONFIG="/etc/dnsmasq.conf"
 
 bashio::log.info "Preparing to start..."
 bashio::config.require 'data_path'
