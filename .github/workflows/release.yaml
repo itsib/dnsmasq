@@ -23,7 +23,7 @@ jobs:
         id: info
         uses: home-assistant/actions/helpers/info@master
         with:
-          path: "/home/runner/work/dnsmasq"
+          path: "/home/runner/work/dnsmasq/dnsmasq"
   deploy:
     name: Build and publish
     runs-on: ubuntu-latest
