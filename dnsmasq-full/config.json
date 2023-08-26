@@ -3,7 +3,6 @@
   "slug": "dnsmasq-full",
   "version": "1.6.16",
   "description": "Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server.",
-  "codenotary": "itsib.su@gmail.com",
   "stage": "experimental",
   "arch": [
     "armhf",
