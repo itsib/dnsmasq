@@ -2,7 +2,7 @@
 
 A simple DNS server.
 
-![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
+[![Release](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml/badge.svg)](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml) ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
 
 ## About
 
