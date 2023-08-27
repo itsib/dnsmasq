@@ -12,7 +12,13 @@ abort () {
   if [ -f "${CONFIG_FILE}.tmp" ]; then
     cp -f "$CONFIG_FILE.tmp" "$CONFIG_FILE"
     rm "${CONFIG_FILE}.tmp"
-    success "Discarded the changes."
+    success "Discarded the changes in config file."
+  fi
+
+  if [ -f "VERSION.tmp" ]; then
+    cp -f "VERSION.tmp" "VERSION"
+    rm "VERSION.tmp"
+    success "Discarded the changes in VERSION file."
   fi
 
   exit 1
@@ -57,7 +63,9 @@ bump() {
   success "New version: $NEW_VERSION"
 
   sed -i.tmp "s/^version:[[:space:]]${CURRENT_VERSION}/version: ${NEW_VERSION}/g" "$CONFIG_FILE"
-#
+
+  cp -f "VERSION" "VERSION.tmp"
+  echo "${NEW_VERSION}" >| "VERSION"
 
   if [[ $(git diff "${CONFIG_FILE}") ]]; then
       success "Updated the configuration file."
