@@ -4,13 +4,14 @@ bashio::log.info "Preparing to start..."
 bashio::config.require 'data_path'
 
 DNSMASQ_DATA_PATH=$(bashio::config 'data_path')
+CONFIG_FILE="$DNSMASQ_DATA_PATH/dnsmasq.conf"
 
 #Create config if not exist
-if ! bashio::fs.file_exists "$DNSMASQ_DATA_PATH/dnsmasq.conf"; then
+if ! bashio::fs.file_exists "$CONFIG_FILE"; then
   mkdir -p "$DNSMASQ_DATA_PATH" || bashio::exit.nok "Could not create $DNSMASQ_DATA_PATH"
 
   bashio::log.info "Create default config file"
-  cat <<EOF > "$DNSMASQ_DATA_PATH/dnsmasq.conf"
+  cat <<EOF > "$CONFIG_FILE"
 no-resolv
 no-hosts
 keep-in-foreground
@@ -28,4 +29,11 @@ bashio::log.info "Starting dnsmasq..."
 # Set max open file limit to speed up startup
 ulimit -n 1024
 
-exec dnsmasq -C "$DNSMASQ_DATA_PATH/dnsmasq.conf" -z < /dev/null
+config_test_result=$(dnsmasq --test)
+
+if ! [[ "$config_test_result" == *"syntax check OK"* ]]; then
+  bashio::log.error "Invalid configuration file"
+  return 1
+fi
+
+exec dnsmasq --conf-file="$CONFIG_FILE"

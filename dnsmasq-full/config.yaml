@@ -1,7 +1,7 @@
 ---
 name: Dnsmasq Full
 slug: dnsmasq-full
-version: 1.7.6
+version: 1.7.7
 description: Dnsmasq is a lightweight DNS, TFTP, PXE, router advertisement and DHCP server.
 stage: experimental
 arch:
