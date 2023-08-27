@@ -65,7 +65,7 @@ bump() {
 
   sed -i.tmp "s/^version:[[:space:]]${CURRENT_VERSION}/version: ${NEW_VERSION}/g" "$CONFIG_FILE"
 
-  sed -i.tmp "s/^\"status\":[[:space:]]\"v${CURRENT_VERSION}\"/\"version\": \"v${NEW_VERSION}\"/g" "$BADGE_VERSION_FILE"
+  sed -i.tmp "s/\"status\":[[:space:]]\"v${CURRENT_VERSION}\"/\"status\": \"v${NEW_VERSION}\"/g" "$BADGE_VERSION_FILE"
 
   if [[ $(git diff "${CONFIG_FILE}") ]]; then
       success "Updated the configuration file."
