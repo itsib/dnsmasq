@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CONFIG_FILE="dnsmasq-full/config.yaml"
+BADGE_VERSION_FILE="version"
 SEMANTIC=${1:-"patch"}
 CURRENT_VERSION=
 NEW_VERSION=
@@ -15,9 +16,9 @@ abort () {
     success "Discarded the changes in config file."
   fi
 
-  if [ -f "VERSION.tmp" ]; then
-    cp -f "VERSION.tmp" "VERSION"
-    rm "VERSION.tmp"
+  if [ -f "${BADGE_VERSION_FILE}.tmp" ]; then
+    cp -f "${BADGE_VERSION_FILE}.tmp" "$BADGE_VERSION_FILE"
+    rm "${BADGE_VERSION_FILE}.tmp"
     success "Discarded the changes in VERSION file."
   fi
 
@@ -64,8 +65,7 @@ bump() {
 
   sed -i.tmp "s/^version:[[:space:]]${CURRENT_VERSION}/version: ${NEW_VERSION}/g" "$CONFIG_FILE"
 
-  cp -f "VERSION" "VERSION.tmp"
-  echo "${NEW_VERSION}" >| "VERSION"
+  sed -i.tmp "s/^\"status\":[[:space:]]\"v${CURRENT_VERSION}\"/\"version\": \"v${NEW_VERSION}\"/g" "$BADGE_VERSION_FILE"
 
   if [[ $(git diff "${CONFIG_FILE}") ]]; then
       success "Updated the configuration file."
@@ -95,6 +95,7 @@ push() {
 
 clean() {
   rm "${CONFIG_FILE}.tmp"
+  rm "${BADGE_VERSION_FILE}.tmp"
   success "Deleted temporary files"
 }
 
