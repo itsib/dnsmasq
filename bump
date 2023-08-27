@@ -1,18 +1,31 @@
 #!/bin/bash
 
 CONFIG_FILE="dnsmasq-full/config.yaml"
+SEMANTIC=${1:-"patch"}
 CURRENT_VERSION=
 NEW_VERSION=
 
 abort () {
-  local message=$@
-  printf "\e[31m \nERROR: \"%s\"\e[0m \n\n" "$message"
+  local error=$1
+  printf "💀\e[31m ERROR: %s\e[0m \n" "$error"
+
+  if [ -f "${CONFIG_FILE}.tmp" ]; then
+    cp -f "$CONFIG_FILE.tmp" "$CONFIG_FILE"
+    rm "${CONFIG_FILE}.tmp"
+    success "Discarded the changes."
+  fi
+
   exit 1
+}
+
+success() {
+  local message=$1
+  printf "🔅\e[32m %s\e[0m \n" "$message"
 }
 
 bump() {
   if [ ! -f "$CONFIG_FILE" ]; then
-      abort "💀 Config file not found!"
+      abort "Config file not found. Path: $CONFIG_FILE"
   fi
 
   CURRENT_VERSION=$(cat "$CONFIG_FILE" | grep --regexp='^version:' | cut -d ':' -f2 | sed -e 's/^[[:space:]]*//')
@@ -20,7 +33,7 @@ bump() {
   MINOR=$(echo $CURRENT_VERSION | cut -d. -f2)
   PATCH=$(echo $CURRENT_VERSION | cut -d. -f3)
 
-  case $@ in
+  case $SEMANTIC in
     "major")
       let "++MAJOR"
       MINOR=0
@@ -34,32 +47,57 @@ bump() {
       let "++PATCH"
       ;;
     *)
-      abort "💀 Bad CLI usage! Version argument should be one of: major, minor or patch"
+      abort "Bad CLI usage! Version argument should be one of: major, minor or patch"
       ;;
   esac
 
   NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
 
-  echo " - Current version: \"$CURRENT_VERSION\""
-  echo " - New version: \"$NEW_VERSION\""
+  success "Current version: $CURRENT_VERSION"
+  success "New version: $NEW_VERSION"
 
   sed -i.tmp "s/^version:[[:space:]]${CURRENT_VERSION}/version: ${NEW_VERSION}/g" "$CONFIG_FILE"
-  rm "${CONFIG_FILE}.tmp"
+#
 
   if [[ $(git diff "${CONFIG_FILE}") ]]; then
-      echo "✅ Config successfully updated."
+      success "Updated the configuration file."
     else
-      abort "💀 Failed to update $CONFIG_FILE. Aborting."
+      abort "Failed to update $CONFIG_FILE."
     fi
 }
 
 push() {
+  if [[ $(git tag -l "v${NEW_VERSION}") ]]; then
+    abort "Tag v${NEW_VERSION} already exist."
+  fi
+
+
   git add .
-  git commit -q -m "Bump to ${NEW_VERSION}"
-  git push -q
+  git commit -q -m "${SEMANTIC^} v${NEW_VERSION}"
+  success "Commit changes"
+
   git tag "v${NEW_VERSION}"
-  git push origin --tags
+  success "Created the v${NEW_VERSION} tag"
+
+  git push -q
+  success "Pushed changes"
+  git push -q origin --tags
+  success "Pushed tags"
 }
 
-bump $1
+clean() {
+  rm "${CONFIG_FILE}.tmp"
+  success "Deleted temporary files"
+}
+
+printf "🥁 \033[1mBuilding %s release...\033[0m \n" "$SEMANTIC"
+
+bump
 push
+clean
+
+printf "🚀 \033[1mCongratulations on the release of v%s!!!\033[0m \n" "$NEW_VERSION"
+
+
+
+
