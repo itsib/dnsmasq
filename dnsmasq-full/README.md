@@ -1,8 +1,14 @@
 # Home Assistant Add-on: Dnsmasq
 
-A simple DNS server.
+---
 
-[![Release](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml/badge.svg)](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml) ![Supports aarch64 Architecture][aarch64-shield] ![Supports amd64 Architecture][amd64-shield] ![Supports armhf Architecture][armhf-shield] ![Supports armv7 Architecture][armv7-shield] ![Supports i386 Architecture][i386-shield]
+[![release](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml/badge.svg)](https://github.com/itsib/dnsmasq/actions/workflows/release.yaml)
+![Version](https://badgen.net/https/raw.githubusercontent.com/itsib/dnsmasq/main/version)
+![Supports aarch64 Architecture](https://img.shields.io/badge/aarch64-yes-green.svg)
+![Supports amd64 Architecture](https://img.shields.io/badge/amd64-yes-green.svg)
+![Supports armhf Architecture](https://img.shields.io/badge/armhf-yes-green.svg)
+![Supports armv7 Architecture](https://img.shields.io/badge/armv7-yes-green.svg)
+![Supports i386 Architecture](https://img.shields.io/badge/i386-yes-green.svg)
 
 ## About
 
