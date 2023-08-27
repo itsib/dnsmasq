@@ -52,7 +52,10 @@ jobs:
 
 
   release:
+    name: Release
+    needs: deploy
     runs-on: ubuntu-latest
+    environment: production
     permissions:
       contents: write
     steps:
