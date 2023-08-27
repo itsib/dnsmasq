@@ -56,9 +56,9 @@ bump() {
 push() {
   git add .
   git commit -q -m "Bump to ${NEW_VERSION}"
-#  git push -q
+  git push -q
   git tag "v${NEW_VERSION}"
-#  git push origin --tags
+  git push origin --tags
 }
 
 bump $1
