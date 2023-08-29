@@ -1,0 +1,24 @@
+#!/bin/bash
+
+ADDON_PATH="./dnsmasq-full"
+CONFIG_FILE="${ADDON_PATH}/config.yaml"
+VERSION=$(cat "$CONFIG_FILE" | grep --regexp='^version:' | cut -d ':' -f2 | sed -e 's/^[[:space:]]*//')
+BUILD_FROM_IMAGE="homeassistant/amd64-base:latest"
+LOCAL_IMAGE="local/image-amd64-dnsmasq"
+
+
+docker_build() {
+  pwd
+  docker build \
+    --build-arg BUILD_FROM="$BUILD_FROM_IMAGE" \
+    --build-arg BUILD_ARCH=amd64 \
+    --build-arg BUILD_ARCH=amd64 \
+    --build-arg BUILD_VERSION="$VERSION" \
+    --build-arg BUILD_DESCRIPTION="Some test description" \
+    --tag "$LOCAL_IMAGE" \
+    .
+}
+
+
+(cd "$ADDON_PATH" && docker_build)
+

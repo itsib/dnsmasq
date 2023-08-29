@@ -29,7 +29,7 @@ bashio::log.info "Starting dnsmasq..."
 # Set max open file limit to speed up startup
 ulimit -n 1024
 
-config_test_result=$(dnsmasq --test)
+config_test_result=$(dnsmasq --test 2>&1)
 
 if ! [[ "$config_test_result" == *"syntax check OK"* ]]; then
   bashio::log.error "Invalid configuration file"

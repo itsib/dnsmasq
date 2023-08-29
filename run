@@ -1,0 +1,14 @@
+#!/bin/bash
+
+IMAGE="local/image-amd64-dnsmasq"
+ADDON_PATH="./dnsmasq-full"
+
+docker_run() {
+  docker run \
+    --rm \
+    --volume ./.tmp/data:/data \
+    --publish 127.0.0.1:53:53/tcp \
+    "$IMAGE"
+}
+
+(cd "$ADDON_PATH" && docker_run)
